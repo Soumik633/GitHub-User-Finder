@@ -1,0 +1,508 @@
+/* ══════════════════════════════════════════
+   GitHub User Finder — Global Styles
+   Author: Soumik
+   Theme: Warm Slate — Dark & Light mode
+══════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ──────────────────────────────────────────
+   DESIGN TOKENS — Dark Mode (default)
+────────────────────────────────────────── */
+:root {
+  --bg-page:       #0f1117;
+  --bg-card:       #181c25;
+  --bg-card-2:     #1e2330;
+  --bg-input:      #13161f;
+  --border:        #2a2f3d;
+  --border-accent: rgba(99, 143, 217, 0.35);
+  --text-primary:  #e8eaf0;
+  --text-secondary:#9aa0b4;
+  --text-muted:    #555e78;
+  --accent:        #638fd9;
+  --accent-hover:  #7aa3e8;
+  --accent-glow:   rgba(99, 143, 217, 0.18);
+  --accent-btn-bg: linear-gradient(135deg, #3d6fc4, #5a8de0);
+  --star-color:    #c9973a;
+  --green:         #4caf82;
+  --red:           #e05c5c;
+  --amber:         #d4914a;
+  --radius:        14px;
+  --shadow-card:   0 4px 24px rgba(0,0,0,0.35);
+}
+
+/* ──────────────────────────────────────────
+   DESIGN TOKENS — Light Mode
+────────────────────────────────────────── */
+html:not(.dark) {
+  --bg-page:       #f0f2f7;
+  --bg-card:       #ffffff;
+  --bg-card-2:     #f7f8fc;
+  --bg-input:      #ffffff;
+  --border:        #dde1ec;
+  --border-accent: rgba(62, 110, 196, 0.35);
+  --text-primary:  #1a1f2e;
+  --text-secondary:#4a5270;
+  --text-muted:    #9098b0;
+  --accent:        #3e6ec4;
+  --accent-hover:  #2d5aab;
+  --accent-glow:   rgba(62, 110, 196, 0.12);
+  --accent-btn-bg: linear-gradient(135deg, #3060b8, #4a7dd4);
+  --star-color:    #c08020;
+  --green:         #2e9966;
+  --red:           #c94040;
+  --amber:         #b87030;
+  --radius:        14px;
+  --shadow-card:   0 2px 16px rgba(0,0,0,0.08);
+}
+
+/* ──────────────────────────────────────────
+   BASE
+────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg-page);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ──────────────────────────────────────────
+   SCROLLBAR
+────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-page); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ──────────────────────────────────────────
+   SEMANTIC UTILITY CLASSES
+   (used in JSX so we avoid hardcoded colors)
+────────────────────────────────────────── */
+.app-root        { background: var(--bg-page); }
+.heading-text    { color: var(--text-primary); }
+.subtext         { color: var(--text-secondary); }
+.label-text      { color: var(--text-muted); }
+.accent-text     { color: var(--accent); }
+.wordmark        { color: var(--text-muted); }
+.wordmark-dot    { color: var(--accent); }
+
+/* Gradient headline */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ──────────────────────────────────────────
+   BACKGROUND GLOW
+────────────────────────────────────────── */
+.bg-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% -5%, var(--accent-glow) 0%, transparent 65%);
+  transition: background 0.3s ease;
+}
+
+/* ──────────────────────────────────────────
+   SCANLINE SWEEP
+────────────────────────────────────────── */
+.scanline {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-accent), transparent);
+  animation: scanline 10s linear infinite;
+  pointer-events: none;
+  z-index: 100;
+}
+@keyframes scanline {
+  0%   { transform: translateY(-4px); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* ──────────────────────────────────────────
+   CARDS
+────────────────────────────────────────── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.25s, transform 0.25s;
+}
+.card:hover {
+  border-color: var(--border-accent);
+  box-shadow: var(--shadow-card), 0 0 0 1px var(--border-accent);
+  transform: translateY(-2px);
+}
+
+/* "glass-bright" — alias kept for skeleton components */
+.glass-bright {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  transition: background 0.3s, border-color 0.3s;
+}
+
+/* ──────────────────────────────────────────
+   SEARCH INPUT
+────────────────────────────────────────── */
+.search-input {
+  background: var(--bg-input);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.3s;
+  width: 100%;
+}
+.search-input:focus {
+  border-color: var(--border-accent);
+  box-shadow: 0 0 0 3px var(--accent-glow);
+}
+.search-input::placeholder { color: var(--text-muted); }
+.search-input:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ──────────────────────────────────────────
+   PRIMARY BUTTON
+────────────────────────────────────────── */
+.btn-primary {
+  background: var(--accent-btn-bg);
+  color: #fff;
+  border: 1px solid var(--border-accent);
+  cursor: pointer;
+  font-family: 'Space Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  transition: all 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 0 18px var(--accent-glow);
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}
+.btn-primary:active:not(:disabled) { transform: translateY(0); }
+.btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
+
+/* ──────────────────────────────────────────
+   LOGO RING
+────────────────────────────────────────── */
+.logo-ring {
+  border: 1px solid var(--border-accent);
+  background: var(--accent-glow);
+  animation: glowPulse 3s ease-in-out infinite;
+}
+.icon-accent { color: var(--accent); opacity: 0.85; }
+
+/* ──────────────────────────────────────────
+   FEATURED CHIP (featured devs)
+────────────────────────────────────────── */
+.chip-btn {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  padding: 4px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.chip-btn:hover {
+  background: var(--accent-glow);
+  border-color: var(--border-accent);
+  color: var(--accent);
+}
+
+/* ──────────────────────────────────────────
+   HISTORY PILL (recent searches with ✕)
+────────────────────────────────────────── */
+.history-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0px;
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: border-color 0.15s, background 0.15s;
+}
+.history-pill:hover {
+  border-color: var(--border-accent);
+  background: var(--accent-glow);
+}
+.history-pill-text {
+  color: var(--accent);
+  padding: 4px 10px 4px 12px;
+  cursor: pointer;
+  transition: color 0.15s;
+  white-space: nowrap;
+}
+.history-pill-text:hover { color: var(--accent-hover); }
+
+/* The ✕ remove button — hidden until hover */
+.history-pill-remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: width 0.2s, opacity 0.2s, color 0.15s, padding 0.2s;
+  background: transparent;
+  border: none;
+}
+.history-pill:hover .history-pill-remove {
+  width: 22px;
+  opacity: 1;
+  padding: 0 6px 0 2px;
+}
+.history-pill-remove:hover { color: var(--red); }
+
+/* Clear-all button */
+.clear-btn {
+  color: var(--text-muted);
+  font-size: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.clear-btn:hover { color: var(--red); }
+
+/* ──────────────────────────────────────────
+   STAT CHIP (inside UserCard)
+────────────────────────────────────────── */
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 12px;
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  transition: border-color 0.2s, background 0.3s;
+}
+.stat-item:hover { border-color: var(--border-accent); }
+
+/* ──────────────────────────────────────────
+   BADGE TAGS
+────────────────────────────────────────── */
+.tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  background: var(--accent-glow);
+  border: 1px solid var(--border-accent);
+  color: var(--accent);
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.tag-green {
+  background: rgba(76, 175, 130, 0.1);
+  border-color: rgba(76, 175, 130, 0.3);
+  color: var(--green);
+}
+
+/* ──────────────────────────────────────────
+   REPO ROW
+────────────────────────────────────────── */
+.repo-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 18px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+.repo-row:last-child { border-bottom: none; }
+.repo-row:hover { background: var(--accent-glow); }
+
+/* ──────────────────────────────────────────
+   AVATAR GLOW RING
+────────────────────────────────────────── */
+.avatar-glow { animation: glowPulse 3s ease-in-out infinite; }
+
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 8px var(--accent-glow); }
+  50%       { box-shadow: 0 0 22px var(--border-accent); }
+}
+
+/* ──────────────────────────────────────────
+   SHIMMER SKELETON
+────────────────────────────────────────── */
+.shimmer-bg {
+  background: linear-gradient(90deg,
+    var(--bg-card) 25%,
+    var(--bg-card-2) 50%,
+    var(--bg-card) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite linear;
+}
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to   { background-position:  200% 0; }
+}
+
+/* ──────────────────────────────────────────
+   SPINNER
+────────────────────────────────────────── */
+.spinner {
+  width: 26px;
+  height: 26px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ──────────────────────────────────────────
+   DARK MODE TOGGLE
+────────────────────────────────────────── */
+.toggle-track {
+  background: var(--bg-card-2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  width: 44px;
+  height: 24px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.25s, border-color 0.25s;
+}
+.toggle-track.active {
+  background: var(--accent-glow);
+  border-color: var(--border-accent);
+}
+.toggle-thumb {
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  transition: transform 0.25s cubic-bezier(.4,0,.2,1), background 0.25s;
+}
+.toggle-track.active .toggle-thumb {
+  transform: translateX(20px);
+  background: var(--accent);
+}
+
+/* ──────────────────────────────────────────
+   FOOTER
+────────────────────────────────────────── */
+.footer-border  { border-color: var(--border); }
+.footer-link    { color: var(--text-muted); }
+.footer-link:hover { color: var(--accent); }
+.footer-copy    { color: var(--text-muted); }
+.footer-api-link { color: var(--accent); opacity: 0.7; }
+.footer-api-link:hover { opacity: 1; }
+
+/* ──────────────────────────────────────────
+   FADE-UP ANIMATIONS
+────────────────────────────────────────── */
+.fade-up    { animation: fadeUp 0.45s ease forwards; }
+.fade-up-d1 { animation: fadeUp 0.45s 0.07s ease both; }
+.fade-up-d2 { animation: fadeUp 0.45s 0.14s ease both; }
+.fade-up-d3 { animation: fadeUp 0.45s 0.21s ease both; }
+.fade-up-d4 { animation: fadeUp 0.45s 0.28s ease both; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════════════
+   NAME SEARCH — Additional Styles
+══════════════════════════════════════════ */
+
+/* ── Mode toggle tabs ── */
+.mode-tab         { cursor: pointer; border: none; }
+.mode-tab-active  {
+  background: var(--accent-btn-bg);
+  color: #fff;
+  box-shadow: 0 2px 8px var(--accent-glow);
+}
+.mode-tab-inactive {
+  background: transparent;
+  color: var(--text-muted);
+}
+.mode-tab-inactive:hover { color: var(--text-secondary); }
+
+/* ── User result grid ── */
+.user-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+/* ── Person card ── */
+.person-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  outline: none;
+}
+.person-card:hover,
+.person-card:focus-visible {
+  border-color: var(--border-accent);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2), 0 0 0 1px var(--border-accent);
+}
+.person-card:hover .view-cta,
+.person-card:focus-visible .view-cta {
+  color: var(--accent);
+}
+
+/* View CTA arrow */
+.view-cta {
+  color: var(--text-muted);
+  transition: color 0.15s;
+}
+
+/* Hint badge */
+.hint-badge {
+  background: var(--accent-glow);
+  border: 1px solid var(--border-accent);
+  color: var(--text-secondary);
+}
+
+/* Back button */
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Space Mono', monospace;
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 6px 0;
+  transition: color 0.15s;
+}
+.back-btn:hover { color: var(--accent); }
