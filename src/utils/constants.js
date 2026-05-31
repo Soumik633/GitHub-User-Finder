@@ -20,7 +20,7 @@ export const DEBOUNCE_MS = 500
 
 /** Famous GitHub usernames shown on the landing screen */
 export const FEATURED_USERS = [
- 'soumik633',
+  'soumik633',
   'KOUSIKPAL33',
   'SusmitChoudhury',
   'sindresorhus',
